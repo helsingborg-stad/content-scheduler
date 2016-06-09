@@ -1,0 +1,13 @@
+{
+    "name": "helsingborg-stad/content-scheduler",
+    "description": "Nicer major publising actions interface and feature for post unpublising scheduleing",
+    "type": "wordpress-plugin",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Kristoffer Svanmark",
+            "email": "kristoffer.svanmark@lexiconitkonsult.se"
+        }
+    ],
+    "require": {}
+}
