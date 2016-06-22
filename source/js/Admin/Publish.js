@@ -4,6 +4,10 @@ ContentScheduler.Admin = ContentScheduler.Admin || {};
 ContentScheduler.Admin.Publish = (function ($) {
 
     function Publish() {
+        if ($('#misc-publishing-actions').length === 0) {
+            return;
+        }
+
         this.initDatepicker();
     }
 

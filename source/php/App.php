@@ -28,7 +28,7 @@ class App
      */
     public function enqueueScripts()
     {
-        wp_register_script('content-scheduler', CONTENTSCHEDULER_URL . '/dist/js/content-scheduler.min.js', '', '1.0.0', true);
+        wp_register_script('content-scheduler', CONTENTSCHEDULER_URL . '/dist/js/content-scheduler.dev.js', '', '1.0.0', true);
         wp_enqueue_script('content-scheduler');
     }
 }

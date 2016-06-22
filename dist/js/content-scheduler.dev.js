@@ -6,6 +6,10 @@ ContentScheduler.Admin = ContentScheduler.Admin || {};
 ContentScheduler.Admin.Publish = (function ($) {
 
     function Publish() {
+        if ($('#misc-publishing-actions').length === 0) {
+            return;
+        }
+
         this.initDatepicker();
     }
 
@@ -45,6 +49,10 @@ ContentScheduler.Admin = ContentScheduler.Admin || {};
 ContentScheduler.Admin.Unpublish = (function ($) {
 
     function Unpublish() {
+        if ($('#misc-publishing-actions').length === 0) {
+            return;
+        }
+
         this.initDatepicker();
         this.handleEvents();
 

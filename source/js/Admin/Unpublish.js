@@ -4,6 +4,10 @@ ContentScheduler.Admin = ContentScheduler.Admin || {};
 ContentScheduler.Admin.Unpublish = (function ($) {
 
     function Unpublish() {
+        if ($('#misc-publishing-actions').length === 0) {
+            return;
+        }
+
         this.initDatepicker();
         this.handleEvents();
 
