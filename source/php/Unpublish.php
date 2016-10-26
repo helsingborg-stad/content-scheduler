@@ -19,6 +19,11 @@ class Unpublish
      */
     public function unpublishPost($postId, $action = 'trash')
     {
+        $postStatus = get_post_status($postId);
+        if (!in_array($postStatus, array('publish', 'private', 'password', 'draft'))) {
+            return false;
+        }
+
         switch ($action) {
             case 'draft':
                 wp_update_post(array(
@@ -42,6 +47,11 @@ class Unpublish
      */
     public function saveUnpublish($postId)
     {
+        // Do not proceed if post is a revision
+        if (wp_is_post_revision($postId)) {
+            return false;
+        }
+
         $args = array(
             'post_id' => $postId
         );
