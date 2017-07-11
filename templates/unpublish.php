@@ -1,7 +1,7 @@
 <?php
 global $post;
 $unpubDate = get_post_meta($post->ID, 'unpublish-date', true);
-$action = get_post_meta($post->ID, 'unpublish-action', true) ? get_post_meta($post->ID, 'unpublish-action', true) : 'trash';
+$action = get_post_meta($post->ID, 'unpublish-action', true) ? get_post_meta($post->ID, 'unpublish-action', true) : 'draft';
 ?>
 <div class="misc-pub-section unpublish-pub-section">
     <span id="unpublish-timestamp">
@@ -13,11 +13,11 @@ $action = get_post_meta($post->ID, 'unpublish-action', true) ? get_post_meta($po
 
     <fieldset id="unpublish-timestampdiv" style="padding-top: 5px;" class="hide-if-js">
         <div id="unpublish-action">
-            <input type="radio" name="unpublish-action" value="trash" id="unpublish-action-trash" <?php checked('trash', $action); ?>>
-            <label for="unpublish-action-trash"><?php _e('Trash'); ?></label>
-
             <input type="radio" name="unpublish-action" value="draft" id="unpublish-action-draft" <?php checked('draft', $action); ?>>
             <label for="unpublish-action-draft"><?php _e('Draft'); ?></label>
+
+            <input type="radio" name="unpublish-action" value="trash" id="unpublish-action-trash" <?php checked('trash', $action); ?>>
+            <label for="unpublish-action-trash"><?php _e('Trash'); ?></label>
         </div>
         <div id="unpublish-timestamp-datepicker" class="municipio-admin-datepicker"></div>
         <div class="timestamp-wrap">
