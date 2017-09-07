@@ -26,9 +26,6 @@ load_plugin_textdomain('content-scheduler', false, plugin_basename(dirname(__FIL
 
 require_once CONTENTSCHEDULER_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once CONTENTSCHEDULER_PATH . 'Public.php';
-if (! class_exists('\\AcfExportManager\\AcfExportManager')) {
-	require_once CONTENTSCHEDULER_PATH . 'Vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php';
-}
 
 // Instantiate and register the autoloader
 $loader = new ContentScheduler\Vendor\Psr4ClassLoader();
@@ -37,13 +34,15 @@ $loader->addPrefix('ContentScheduler', CONTENTSCHEDULER_PATH . 'source/php/');
 $loader->register();
 
 // Acf auto import and export
-$acfExportManager = new AcfExportManager\AcfExportManager();
-$acfExportManager->setTextdomain('content-scheduler');
-$acfExportManager->setExportFolder(CONTENTSCHEDULER_PATH . 'source/php/AcfFields/');
-$acfExportManager->autoExport(array(
-    'content-scheduler-options' => 'group_59b0f1288d51b',
-));
-$acfExportManager->import();
+add_action('plugins_loaded', function () {
+	$acfExportManager = new AcfExportManager\AcfExportManager();
+	$acfExportManager->setTextdomain('content-scheduler');
+	$acfExportManager->setExportFolder(CONTENTSCHEDULER_PATH . 'source/php/AcfFields/');
+	$acfExportManager->autoExport(array(
+	    'content-scheduler-options' => 'group_59b0f1288d51b',
+	));
+	$acfExportManager->import();
+});
 
 // Start application
 new ContentScheduler\App();
