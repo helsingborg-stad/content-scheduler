@@ -1,0 +1,117 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"Project-Id-Version: Content Scheduler\n"
+"POT-Creation-Date: 2017-09-07 11:01+0200\n"
+"PO-Revision-Date: 2017-09-07 10:53+0200\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-Flags-xgettext: --add-comments=translators:\n"
+"X-Poedit-WPHeader: content-scheduler.php\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;_n:1,2;_x:1,2c;_ex:1,2c;_nx:4c,1,2;esc_attr__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c;_n_noop:1,2;"
+"_nx_noop:3c,1,2;__ngettext_noop:1,2\n"
+"X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+
+#: source/php/AcfFields/php/content-scheduler-options.php:6
+#: source/php/Options.php:11
+msgid "Content scheduler options"
+msgstr ""
+
+#: source/php/AcfFields/php/content-scheduler-options.php:10
+msgid "Post types"
+msgstr ""
+
+#: source/php/AcfFields/php/content-scheduler-options.php:13
+msgid "Activate content scheduler for selected post types."
+msgstr ""
+
+#: source/php/Options.php:12
+msgid "Content scheduler"
+msgstr ""
+
+#: templates/unpublish.php:8
+msgid "Unpublish"
+msgstr ""
+
+#: templates/unpublish.php:12
+msgid "Edit"
+msgstr ""
+
+#: templates/unpublish.php:12
+msgid "Edit unpublish date and time"
+msgstr ""
+
+#: templates/unpublish.php:17
+msgid "Draft"
+msgstr ""
+
+#: templates/unpublish.php:20
+msgctxt "Content scheduler"
+msgid "Trash"
+msgstr ""
+
+#: templates/unpublish.php:25 templates/unpublish.php:26
+msgid "Month"
+msgstr ""
+
+#: templates/unpublish.php:41
+msgid "Day"
+msgstr ""
+
+#: templates/unpublish.php:43
+msgid "Year"
+msgstr ""
+
+#: templates/unpublish.php:45
+msgid "Hour"
+msgstr ""
+
+#: templates/unpublish.php:47
+msgid "Minute"
+msgstr ""
+
+#: templates/unpublish.php:53
+msgid "OK"
+msgstr ""
+
+#: templates/unpublish.php:54
+msgid "Cancel"
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:362
+msgid "Export with AcfExportManager"
+msgstr ""
+
+#: vendor/helsingborg-stad/acf-export-manager/src/AcfExportManager.php:406
+#, php-format
+msgid "Exported %d fieldgroup(s)."
+msgstr ""
+
+#. Plugin Name of the plugin/theme
+msgid "Content Scheduler"
+msgstr ""
+
+#. Plugin URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad/content-scheduler"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "Interface for post publishing and unpublisching schedulation"
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "Kristoffer Svanmark"
+msgstr ""
+
+#. Author URI of the plugin/theme
+msgid "https://github.com/helsingborg-stad"
+msgstr ""

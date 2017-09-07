@@ -5,7 +5,7 @@ $action = get_post_meta($post->ID, 'unpublish-action', true) ? get_post_meta($po
 ?>
 <div class="misc-pub-section unpublish-pub-section">
     <span id="unpublish-timestamp">
-        <?php _e('Unpublish', 'municipio'); ?>
+        <?php _e('Unpublish', 'content-scheduler'); ?>
         <b></b>
     </span>
 
@@ -14,10 +14,10 @@ $action = get_post_meta($post->ID, 'unpublish-action', true) ? get_post_meta($po
     <fieldset id="unpublish-timestampdiv" style="padding-top: 5px;" class="hide-if-js">
         <div id="unpublish-action">
             <input type="radio" name="unpublish-action" value="draft" id="unpublish-action-draft" <?php checked('draft', $action); ?>>
-            <label for="unpublish-action-draft"><?php _e('Draft'); ?></label>
+            <label for="unpublish-action-draft"><?php _e('Draft', 'content-scheduler'); ?></label>
 
             <input type="radio" name="unpublish-action" value="trash" id="unpublish-action-trash" <?php checked('trash', $action); ?>>
-            <label for="unpublish-action-trash"><?php _e('Trash'); ?></label>
+            <label for="unpublish-action-trash"><?php _ex('Trash', 'Content scheduler', 'content-scheduler'); ?></label>
         </div>
         <div id="unpublish-timestamp-datepicker" class="municipio-admin-datepicker"></div>
         <div class="timestamp-wrap">
