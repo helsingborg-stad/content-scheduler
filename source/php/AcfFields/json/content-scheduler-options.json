@@ -1,0 +1,44 @@
+[{
+    "key": "group_59b0f1288d51b",
+    "title": "Content scheduler options",
+    "fields": [
+        {
+            "key": "field_59b0f12893ea1",
+            "label": "Post types",
+            "name": "content_scheduler_posttypes",
+            "type": "posttype_select",
+            "instructions": "Activate content scheduler for selected post types.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "30",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "allow_null": 0,
+            "multiple": 1,
+            "placeholder": "",
+            "disabled": 0,
+            "readonly": 0
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "options_page",
+                "operator": "==",
+                "value": "content-scheduler-options"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": ""
+}]
+
