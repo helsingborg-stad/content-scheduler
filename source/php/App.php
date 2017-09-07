@@ -6,7 +6,8 @@ class App
 {
     public function __construct()
     {
-        new \ContentScheduler\Unpublish();
+        new Unpublish();
+        new Options();
 
         add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
         add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
