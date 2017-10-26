@@ -6,7 +6,7 @@ ContentScheduler.Admin = ContentScheduler.Admin || {};
 ContentScheduler.Admin.Unpublish = (function ($) {
 
     function Unpublish() {
-        if ($('#misc-publishing-actions').length === 0 || $('.unpublish-pub-section').length === 0) {
+        if (!$('.unpublish-pub-section').length) {
             return;
         }
 
