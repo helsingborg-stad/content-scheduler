@@ -24,6 +24,7 @@ define('CONTENTSCHEDULER_TEMPLATE_PATH', CONTENTSCHEDULER_PATH . 'templates/');
 
 load_plugin_textdomain('content-scheduler', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
+require_once CONTENTSCHEDULER_PATH . 'vendor/autoload.php';
 require_once CONTENTSCHEDULER_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
 require_once CONTENTSCHEDULER_PATH . 'Public.php';
 
