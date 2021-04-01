@@ -53,16 +53,10 @@ class App
         }
 
         $post_types = get_field('content_scheduler_posttypes', 'option');
-        $modules = get_field('content_scheduler_modules');
+        $modules = get_field('content_scheduler_modules', 'option');
 
-        if ((is_array($post_types) && !empty($post_types))) {
-            if (!in_array($post_type, $post_types)) {
-                return false;
-            }
-        }
-
-        if((is_array($modules) && !empty($modules))) {
-            if(!in_array($post_type, $modules)) {
+        if ((is_array($post_types) && !empty($post_types)) || (is_array($modules) && !empty($modules))) {
+            if (!in_array($post_type, $post_types) && !in_array($post_type, $modules)) {        
                 return false;
             }
         }
