@@ -25,6 +25,30 @@
             'disabled' => 0,
             'readonly' => 0,
         ),
+        1 => array(
+            'key' => 'field_605db120c6366',
+            'label' => __('Modules', 'content-scheduler'),
+            'name' => 'content_scheduler_modules',
+            'type' => 'select',
+            'instructions' => '',
+            'required' => 0,
+            'conditional_logic' => 0,
+            'wrapper' => array(
+                'width' => '',
+                'class' => '',
+                'id' => '',
+            ),
+            'choices' => array(
+            ),
+            'default_value' => array(
+            ),
+            'allow_null' => 0,
+            'multiple' => 1,
+            'ui' => 0,
+            'return_format' => 'value',
+            'ajax' => 0,
+            'placeholder' => '',
+        ),
     ),
     'location' => array(
         0 => array(
@@ -41,7 +65,7 @@
     'label_placement' => 'top',
     'instruction_placement' => 'label',
     'hide_on_screen' => '',
-    'active' => 1,
+    'active' => true,
     'description' => '',
 ));
 }

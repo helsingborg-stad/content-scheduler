@@ -8,9 +8,39 @@ class App
     {
         new Unpublish();
         new Options();
-
+        
         add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
         add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+
+        add_filter('acf/load_field/name=content_scheduler_modules', array($this, 'addModuleChoices'));
+    }
+
+
+    /**
+     * Add modules to ACF select
+     * @return void
+     */
+
+    public function addModuleChoices($field) {            
+        $args = array(
+            'public'   => false,
+            '_builtin' => false,
+            
+        );    
+     
+        $postTypes = get_post_types( $args, ['names'], 'and' ); 
+        
+        $field['choices'] = array();
+
+        foreach($postTypes as $key => $postType) {
+            if(str_contains($key, 'mod-')) {                    
+            
+                $field['choices'][$postType->name] = $postType->label;
+            }
+        }    
+        
+
+        return $field;
     }
 
     public function isEditPage()
@@ -23,8 +53,16 @@ class App
         }
 
         $post_types = get_field('content_scheduler_posttypes', 'option');
-        if (is_array($post_types) && !empty($post_types)) {
+        $modules = get_field('content_scheduler_modules');
+
+        if ((is_array($post_types) && !empty($post_types))) {
             if (!in_array($post_type, $post_types)) {
+                return false;
+            }
+        }
+
+        if((is_array($modules) && !empty($modules))) {
+            if(!in_array($post_type, $modules)) {
                 return false;
             }
         }

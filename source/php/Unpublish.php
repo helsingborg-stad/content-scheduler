@@ -117,10 +117,11 @@ class Unpublish
     {
         $active = true;
         $post_types = get_field('content_scheduler_posttypes', 'option');
+        $modules = get_field('content_scheduler_modules', 'option');
 
         if (is_array($post_types) && !empty($post_types)) {
             $current = get_post_type($postId);
-            $active = in_array($current, $post_types);
+            $active = (in_array($current, $post_types) || in_array($current, $modules));
         }
 
         return $active;
