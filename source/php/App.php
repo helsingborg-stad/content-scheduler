@@ -33,10 +33,11 @@ class App
         $field['choices'] = array();
 
         foreach($postTypes as $key => $postType) {
-            if(str_contains($key, 'mod-')) {                    
-            
+
+            if(str_contains($key, 'mod-')) {                                
                 $field['choices'][$postType->name] = $postType->label;
             }
+            
         }    
         
 

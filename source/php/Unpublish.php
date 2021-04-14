@@ -45,8 +45,10 @@ class Unpublish
      * @param  integer $postId Post id
      * @return void
      */
-    public function saveUnpublish($postId)
+    public function saveUnpublish()
     {
+        $postId = $_POST['post_ID'];
+        
         // Do not proceed if post is a revision
         if (wp_is_post_revision($postId)) {
             return false;
@@ -119,7 +121,7 @@ class Unpublish
         $post_types = get_field('content_scheduler_posttypes', 'option');
         $modules = get_field('content_scheduler_modules', 'option');
 
-        if (is_array($post_types) && !empty($post_types)) {
+        if (is_array($post_types) && !empty($post_types) || is_array($modules) && !empty($modules)) {
             $current = get_post_type($postId);
             $active = (in_array($current, $post_types) || in_array($current, $modules));
         }
