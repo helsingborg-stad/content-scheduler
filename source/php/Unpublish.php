@@ -45,8 +45,10 @@ class Unpublish
      * @param  integer $postId Post id
      * @return void
      */
-    public function saveUnpublish($postId)
+    public function saveUnpublish()
     {
+        $postId = $_POST['post_ID'];
+        
         // Do not proceed if post is a revision
         if (wp_is_post_revision($postId)) {
             return false;
