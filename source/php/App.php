@@ -7,7 +7,6 @@ class App
     public function __construct()
     {
         new Unpublish();
-        new Options();
 
         add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
         add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
@@ -20,13 +19,6 @@ class App
 
         if (!is_admin() || !$post_type || $post_type === 'attachment') {
             return false;
-        }
-
-        $post_types = get_field('content_scheduler_posttypes', 'option');
-        if (is_array($post_types) && !empty($post_types)) {
-            if (!in_array($post_type, $post_types)) {
-                return false;
-            }
         }
 
         return in_array($pagenow, array('post.php', 'post-new.php'));

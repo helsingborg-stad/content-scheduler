@@ -101,28 +101,6 @@ class Unpublish
      */
     public function setupUi($post)
     {
-        $activated = $this->initScheduler($post->ID);
-
-        if ($activated) {
-            include CONTENTSCHEDULER_TEMPLATE_PATH . '/unpublish.php';
-        }
-    }
-
-    /**
-     * Check if current post type is activated in settings
-     * @param  int|string $postId Current post id
-     * @return bool
-     */
-    public function initScheduler($postId) : bool
-    {
-        $active = true;
-        $post_types = get_field('content_scheduler_posttypes', 'option');
-
-        if (is_array($post_types) && !empty($post_types)) {
-            $current = get_post_type($postId);
-            $active = in_array($current, $post_types);
-        }
-
-        return $active;
+        include CONTENTSCHEDULER_TEMPLATE_PATH . '/unpublish.php';
     }
 }

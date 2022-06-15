@@ -36,13 +36,11 @@ $loader->register();
 
 // Acf auto import and export
 add_action('plugins_loaded', function () {
-	$acfExportManager = new AcfExportManager\AcfExportManager();
-	$acfExportManager->setTextdomain('content-scheduler');
-	$acfExportManager->setExportFolder(CONTENTSCHEDULER_PATH . 'source/php/AcfFields/');
-	$acfExportManager->autoExport(array(
-	    'content-scheduler-options' => 'group_59b0f1288d51b',
-	));
-	$acfExportManager->import();
+		$acfExportManager = new AcfExportManager\AcfExportManager();
+		$acfExportManager->setTextdomain('content-scheduler');
+		$acfExportManager->setExportFolder(CONTENTSCHEDULER_PATH . 'source/php/AcfFields/');
+		$acfExportManager->autoExport(array());
+		$acfExportManager->import();
 });
 
 // Start application
