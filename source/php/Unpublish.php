@@ -8,7 +8,7 @@ class Unpublish
     {
         add_action('post_submitbox_misc_actions', array($this, 'setupUi'));
         add_action('save_post', array($this, 'saveUnpublish'));
-        add_action('unpublish_post', array($this, 'unpublishPost'), 10, 2);
+        add_action('unpublish_post', array($this, 'unpublishPost'));
     }
 
     /**
