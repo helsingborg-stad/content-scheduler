@@ -45,10 +45,8 @@ class Unpublish
      * @param  integer $postId Post id
      * @return void
      */
-    public function saveUnpublish()
+    public function saveUnpublish($postId)
     {
-        $postId = $_POST['post_ID'];
-        
         // Do not proceed if post is a revision
         if (wp_is_post_revision($postId)) {
             return false;
@@ -58,12 +56,14 @@ class Unpublish
             'post_id' => $postId
         );
 
-        wp_unschedule_event(wp_next_scheduled('unpublish_post', $args), 'unpublish_post', $args);
+        wp_unschedule_event(
+            wp_next_scheduled('unpublish_post', $args), 
+            'unpublish_post', $args
+        );
 
         if (!isset($_POST['unpublish-active']) || $_POST['unpublish-active'] != 'true') {
             delete_post_meta($postId, 'unpublish-date');
             delete_post_meta($postId, 'unpublish-action');
-
             return;
         }
 
