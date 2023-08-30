@@ -6,5 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'ContentScheduler\\' => array($baseDir . '/source/php'),
     'AcfExportManager\\' => array($vendorDir . '/helsingborg-stad/acf-export-manager/src'),
 );

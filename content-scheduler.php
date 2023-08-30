@@ -24,15 +24,12 @@ define('CONTENTSCHEDULER_TEMPLATE_PATH', CONTENTSCHEDULER_PATH . 'templates/');
 
 load_plugin_textdomain('content-scheduler', false, plugin_basename(dirname(__FILE__)) . '/languages');
 
-require_once CONTENTSCHEDULER_PATH . 'vendor/autoload.php';
-require_once CONTENTSCHEDULER_PATH . 'source/php/Vendor/Psr4ClassLoader.php';
+// Autoload from plugin
+if (file_exists(CONTENTSCHEDULER_PATH . 'vendor/autoload.php')) {
+	require_once CONTENTSCHEDULER_PATH . 'vendor/autoload.php';
+}
 require_once CONTENTSCHEDULER_PATH . 'Public.php';
 
-// Instantiate and register the autoloader
-$loader = new ContentScheduler\Vendor\Psr4ClassLoader();
-$loader->addPrefix('ContentScheduler', CONTENTSCHEDULER_PATH);
-$loader->addPrefix('ContentScheduler', CONTENTSCHEDULER_PATH . 'source/php/');
-$loader->register();
 
 // Acf auto import and export
 add_action('plugins_loaded', function () {

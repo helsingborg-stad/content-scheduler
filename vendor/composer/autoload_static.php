@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInitf62a539d47abdc21024503d56b7ce7f3
 {
     public static $prefixLengthsPsr4 = array (
+        'C' => 
+        array (
+            'ContentScheduler\\' => 17,
+        ),
         'A' => 
         array (
             'AcfExportManager\\' => 17,
@@ -14,10 +18,18 @@ class ComposerStaticInitf62a539d47abdc21024503d56b7ce7f3
     );
 
     public static $prefixDirsPsr4 = array (
+        'ContentScheduler\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/source/php',
+        ),
         'AcfExportManager\\' => 
         array (
             0 => __DIR__ . '/..' . '/helsingborg-stad/acf-export-manager/src',
         ),
+    );
+
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -25,6 +37,7 @@ class ComposerStaticInitf62a539d47abdc21024503d56b7ce7f3
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInitf62a539d47abdc21024503d56b7ce7f3::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInitf62a539d47abdc21024503d56b7ce7f3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitf62a539d47abdc21024503d56b7ce7f3::$classMap;
 
         }, null, ClassLoader::class);
     }
