@@ -20,7 +20,8 @@
     },
     "autoload": {
         "psr-4": {
-          "ContentScheduler\\": "source/php/"
+            "ContentScheduler\\": "source/php/"
         }
-    }
+    },
+    "version": "2.0.0"
 }
