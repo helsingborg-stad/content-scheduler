@@ -1,5 +1,5 @@
 var ContentScheduler = {};
-console.log('hej');
+
 ContentScheduler = ContentScheduler || {};
 ContentScheduler.Admin = ContentScheduler.Admin || {};
 
@@ -15,7 +15,7 @@ ContentScheduler.Admin.Unpublish = (function ($) {
 
         if ($('#unpublish-active').val() == 'true') {
             $('#unpublish-timestamp b').text(
-                $('#unpublish-mm').find('option:selected').attr('data-text') + ' ' + $('#unpublish-jj').val() + ', ' +  $('#unpublish-aa').val() + ' @ ' + $('#unpublish-hh').val() + ':' + $('#unpublish-mn').val()
+                $('#unpublish-mm').find('option:selected').attr('data-text') + ' ' + $('#unpublish-jj').val() + ', ' + $('#unpublish-aa').val() + ' @ ' + $('#unpublish-hh').val() + ':' + $('#unpublish-mn').val()
             );
         }
     }
@@ -49,7 +49,7 @@ ContentScheduler.Admin.Unpublish = (function ($) {
             $('#unpublish-timestampdiv').slideDown();
         });
 
-        $('.cancel-unpublish-timestamp').on('click', function (e){
+        $('.cancel-unpublish-timestamp').on('click', function (e) {
             e.preventDefault();
             $('.edit-unpublish-timestamp').show();
             $('#unpublish-timestampdiv').slideUp();
@@ -57,7 +57,7 @@ ContentScheduler.Admin.Unpublish = (function ($) {
             $('#unpublish-timestamp b').text('');
         });
 
-        $('.save-unpublish-timestamp').on('click', function (e){
+        $('.save-unpublish-timestamp').on('click', function (e) {
             e.preventDefault();
 
             if ($('#unpublish-jj').val() == '') {
@@ -77,7 +77,7 @@ ContentScheduler.Admin.Unpublish = (function ($) {
             $('#unpublish-timestampdiv').slideUp();
             $('#unpublish-active').val('true');
             $('#unpublish-timestamp b').text(
-                $('#unpublish-mm').find('option:selected').attr('data-text') + ' ' + $('#unpublish-jj').val() + ', ' +  $('#unpublish-aa').val() + ' @ ' + $('#unpublish-hh').val() + ':' + $('#unpublish-mn').val()
+                $('#unpublish-mm').find('option:selected').attr('data-text') + ' ' + $('#unpublish-jj').val() + ', ' + $('#unpublish-aa').val() + ' @ ' + $('#unpublish-hh').val() + ':' + $('#unpublish-mn').val()
             );
         });
     };
