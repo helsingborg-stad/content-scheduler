@@ -1,40 +1,45 @@
-[
-    {
-        "name": "helsingborg-stad/acf-export-manager",
-        "version": "1.0.10",
-        "version_normalized": "1.0.10.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/helsingborg-stad/acf-export-manager.git",
-            "reference": "19eeea9cd0b839777ebdbdf48658b8492d02b64d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/helsingborg-stad/acf-export-manager/zipball/19eeea9cd0b839777ebdbdf48658b8492d02b64d",
-            "reference": "19eeea9cd0b839777ebdbdf48658b8492d02b64d",
-            "shasum": ""
-        },
-        "time": "2018-03-02T07:32:32+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "AcfExportManager\\": "src"
-            }
-        },
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Kristoffer Svanmark",
-                "email": "kristoffer.svanmark@knowit.se"
-            }
-        ],
-        "description": "ACF Export Manager is a extension that let's you automatically export specified your ACF fields on save.",
-        "support": {
-            "source": "https://github.com/helsingborg-stad/acf-export-manager/tree/1.0.10",
-            "issues": "https://github.com/helsingborg-stad/acf-export-manager/issues"
+{
+    "packages": [
+        {
+            "name": "helsingborg-stad/acf-export-manager",
+            "version": "1.0.12",
+            "version_normalized": "1.0.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/helsingborg-stad/acf-export-manager.git",
+                "reference": "9e1b282460cebf68ec4d83cd3c11d8fe7e3612fd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/helsingborg-stad/acf-export-manager/zipball/9e1b282460cebf68ec4d83cd3c11d8fe7e3612fd",
+                "reference": "9e1b282460cebf68ec4d83cd3c11d8fe7e3612fd",
+                "shasum": ""
+            },
+            "time": "2023-05-25T07:56:58+00:00",
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "AcfExportManager\\": "src"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kristoffer Svanmark",
+                    "email": "kristoffer.svanmark@knowit.se"
+                }
+            ],
+            "description": "ACF Export Manager is a extension that let's you automatically export specified your ACF fields on save.",
+            "support": {
+                "source": "https://github.com/helsingborg-stad/acf-export-manager/tree/1.0.12",
+                "issues": "https://github.com/helsingborg-stad/acf-export-manager/issues"
+            },
+            "install-path": "../helsingborg-stad/acf-export-manager"
         }
-    }
-]
+    ],
+    "dev": false,
+    "dev-package-names": []
+}

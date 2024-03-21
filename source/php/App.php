@@ -4,12 +4,15 @@ namespace ContentScheduler;
 
 class App
 {
+    private $cacheBust;
+
     public function __construct()
     {
         new Unpublish();
 
-        add_action('admin_enqueue_scripts', array($this, 'enqueueStyles'));
         add_action('admin_enqueue_scripts', array($this, 'enqueueScripts'));
+
+        $this->cacheBust = new \ContentScheduler\Helper\CacheBust();
     }
 
     public function isEditPage()
@@ -25,20 +28,6 @@ class App
     }
 
     /**
-     * Enqueue required style
-     * @return void
-     */
-    public function enqueueStyles()
-    {
-        if (!$this->isEditPage()) {
-            return false;
-        }
-
-        wp_register_style('content-scheduler', CONTENTSCHEDULER_URL . '/dist/css/content-scheduler.min.css', '', '1.0.0');
-        wp_enqueue_style('content-scheduler');
-    }
-
-    /**
      * Enqueue required scripts
      * @return void
      */
@@ -48,7 +37,22 @@ class App
             return false;
         }
 
-        wp_register_script('content-scheduler', CONTENTSCHEDULER_URL . '/dist/js/content-scheduler.min.js', '', '1.0.0', true);
-        wp_enqueue_script('content-scheduler');
+        wp_register_style(
+            'content-scheduler-css',
+            CONTENTSCHEDULER_URL . '/dist/' .
+                $this->cacheBust->name('css/content-scheduler.scss')
+        );
+
+        wp_enqueue_style('content-scheduler-css');
+
+        wp_register_script(
+            'content-scheduler-js',
+            CONTENTSCHEDULER_URL . '/dist/' .
+                $this->cacheBust->name('js/content-scheduler.js'),
+            array(),
+            '1.0.0',
+            true
+        );
+        wp_enqueue_script('content-scheduler-js');
     }
 }
