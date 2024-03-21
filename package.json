@@ -1,6 +1,6 @@
 {
     "name": "content-scheduler",
-    "version": "3.0.5",
+    "version": "3.1.0",
     "description": "Interface for post publishing and unpublisching schedulation",
     "main": "",
     "scripts": {
@@ -19,7 +19,6 @@
         "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate/issues"
     },
     "homepage": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate",
-
     "browserslist": [
         "> 1%",
         "not dead"

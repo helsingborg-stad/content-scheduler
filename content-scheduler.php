@@ -4,7 +4,7 @@
  * Plugin Name:       Content Scheduler
  * Plugin URI:        https://github.com/helsingborg-stad/content-scheduler
  * Description:       Interface for post publishing and unpublisching schedulation
- * Version: 3.0.5
+ * Version: 3.1.0
  * Author:            Kristoffer Svanmark, Sebastian Thulin
  * Author URI:        https://github.com/helsingborg-stad
  * License:           MIT
