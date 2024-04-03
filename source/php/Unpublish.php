@@ -7,7 +7,7 @@ class Unpublish
     public function __construct()
     {
         add_action('post_submitbox_misc_actions', array($this, 'setupUi'));
-        add_action('save_post', array($this, 'saveUnpublish'));
+        add_action('save_post', array($this, 'saveUnpublish'), 1);
         add_action('unpublish_post', array($this, 'unpublishPost'));
     }
 
@@ -27,7 +27,7 @@ class Unpublish
         switch ($action) {
             case 'draft':
                 wp_update_post(array(
-                    'ID' => (int)$postId,
+                    'ID' => (int) $postId,
                     'post_status' => 'draft'
                 ));
                 break;
@@ -48,25 +48,109 @@ class Unpublish
     public function saveUnpublish($postId)
     {
         // Do not proceed if post is a revision
-        if (wp_is_post_revision($postId)) {
+        if ($this->isPostRevision($postId)) {
             return false;
         }
 
-        $args = array(
-            'post_id' => $postId
-        );
+        // Do not proceed if the post is not the one we want to unpublish
+        if (!$this->correspondsToRequestedUnscheduledPost($postId)) {
+            return false;
+        }
 
-        wp_unschedule_event(
-            wp_next_scheduled('unpublish_post', $args), 
-            'unpublish_post', $args
-        );
+        // Remove previous event
+        $this->unschedulePreviousEvent($postId);
 
-        if (!isset($_POST['unpublish-active']) || $_POST['unpublish-active'] != 'true') {
-            delete_post_meta($postId, 'unpublish-date');
-            delete_post_meta($postId, 'unpublish-action');
+        // Clear event metadata if the 'unpublish-active' flag is not set to 'true'
+        // And abort futher processing.
+        if ($this->clearEventMetadata($postId)) {
             return;
         }
 
+        //Allocate the necessary data
+        $eventAction        = $this->getDesiredAction($postId);
+        $eventTimeMetadata  = $this->getUnpublishTimeMetadata();
+        $eventTimestamp     = $this->compileEventTimestamp($eventTimeMetadata);
+
+        //Update posts meta accordingly
+        update_post_meta($postId, 'unpublish-date', $eventTimeMetadata);
+        update_post_meta($postId, 'unpublish-action', $eventAction);
+
+        //Schedule new event
+        wp_schedule_single_event($eventTimestamp, 'unpublish_post', array(
+            'post_id' => $postId,
+            'action' => $eventAction
+        ));
+    }
+
+    /**
+     * Clears the event metadata if the 'unpublish-active' flag is not set to 'true'.
+     *
+     * @return bool Returns true if the event metadata is cleared, false otherwise.
+     */
+    private function clearEventMetadata($postId)
+    {
+        if (!isset($_POST['unpublish-active']) || $_POST['unpublish-active'] != 'true') {
+            delete_post_meta($postId, 'unpublish-date');
+            delete_post_meta($postId, 'unpublish-action');
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Gets the metadata for the unpublish time.
+     *
+     * @return array The metadata for the unpublish time.
+     * @throws \Exception If any of the required keys are missing.
+     */
+    private function getUnpublishTimeMetadata()
+    {
+        $keys = array('unpublish-aa', 'unpublish-mm', 'unpublish-jj', 'unpublish-hh', 'unpublish-mn');
+        foreach ($keys as $key) {
+            if (!array_key_exists($key, $_POST)) {
+                throw new \Exception('Could not generate a unschedule date due to missing key: ' . $key);
+            }
+        }
+
+        return array(
+            'aa' => $_POST['unpublish-aa'],
+            'mm' => $_POST['unpublish-mm'],
+            'jj' => $_POST['unpublish-jj'],
+            'hh' => $_POST['unpublish-hh'],
+            'mn' => $_POST['unpublish-mn']
+        );
+    }
+
+    /**
+     * Compiles the event timestamp based on the given meta data.
+     *
+     * @param array $meta The meta data containing the event details.
+     * @return string The compiled event timestamp in the format 'YYYY-MM-DD HH:MM:SS'.
+     */
+    private function compileEventTimestamp($meta) {
+        $offset = $this->getTimeZoneOffset();
+        $timestamp = $meta['aa'] . '-' . $meta['mm'] . '-' . $meta['jj'] . ' ' . $meta['hh'] . ':' . $meta['mn'] . ':00';
+        $eventTimestamp = gmdate('Y-m-d H:i:s', strtotime($timestamp . ' ' . $offset));
+        return $eventTimestamp;
+    }
+
+    /**
+     * Gets the desired action to make for the post.
+     *
+     * @param int $postId The ID of the post.
+     * @return string The requested action.
+     */
+    private function getDesiredAction($postId)
+    {
+        return isset($_POST['unpublish-action']) && !empty($_POST['unpublish-action']) ? $_POST['unpublish-action'] : 'trash';
+    }
+
+    /**
+     * Gets the timezone offset.
+     *
+     * @return string The timezone offset.
+     */
+    private function getTimeZoneOffset() {
         $offset = get_option('gmt_offset');
 
         if ($offset > -1) {
@@ -75,26 +159,45 @@ class Unpublish
             $offset = '+' . (1 * abs($offset));
         }
 
-        $unpublishDate = $_POST['unpublish-aa'] . '-' . $_POST['unpublish-mm'] . '-' . $_POST['unpublish-jj'] . ' ' . $_POST['unpublish-hh'] . ':' . $_POST['unpublish-mn'] . ':00';
-        $unpublishTime = strtotime($offset . ' hours', strtotime($unpublishDate));
+        return $offset;
+    }
 
-        $unpubParts = array(
-            'aa' => $_POST['unpublish-aa'],
-            'mm' => $_POST['unpublish-mm'],
-            'jj' => $_POST['unpublish-jj'],
-            'hh' => $_POST['unpublish-hh'],
-            'mn' => $_POST['unpublish-mn']
+    /**
+     * Checks if the current post corresponds to the requested post to be unscheduled.
+     *
+     * @param int $postId The ID of the post to check.
+     * @return bool True if the post corresponds to the requested post, false otherwise.
+     */
+    private function correspondsToRequestedUnscheduledPost($postId): bool {
+        return isset($_POST['post_ID']) && $_POST['post_ID'] == $postId;
+    }
+
+    /**
+     * Checks if a post is a revision.
+     *
+     * @param int $postId The ID of the post to check.
+     * @return bool True if the post is a revision, false otherwise.
+     */
+    private function isPostRevision($postId): bool {
+        return wp_is_post_revision($postId);
+    }
+
+    /**
+     * Unschedules the previous event for a specific post.
+     *
+     * @param int $postId The ID of the post.
+     * @return void
+     */
+    private function unschedulePreviousEvent($postId): void {
+        $args = array(
+            'post_id' => $postId
         );
-
-        $action = isset($_POST['unpublish-action']) && !empty($_POST['unpublish-action']) ? $_POST['unpublish-action'] : 'trash';
-
-        update_post_meta($postId, 'unpublish-date', $unpubParts);
-        update_post_meta($postId, 'unpublish-action', $action);
-
-        wp_schedule_single_event($unpublishTime, 'unpublish_post', array(
-            'post_id' => $postId,
-            'action' => $action
-        ));
+        wp_unschedule_event(
+            wp_next_scheduled(
+                'unpublish_post', $args
+            ), 
+            'unpublish_post', $args
+        );
     }
 
     /**
