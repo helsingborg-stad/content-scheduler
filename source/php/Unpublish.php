@@ -45,16 +45,16 @@ class Unpublish
      * @param  integer $postId Post id
      * @return void
      */
-    public function saveUnpublish($postId)
+    public function saveUnpublish($postId): void
     {
         // Do not proceed if post is a revision
         if ($this->isPostRevision($postId)) {
-            return false;
+            return;
         }
 
         // Do not proceed if the post is not the one we want to unpublish
         if (!$this->correspondsToRequestedUnscheduledPost($postId)) {
-            return false;
+            return;
         }
 
         // Remove previous event
@@ -87,7 +87,7 @@ class Unpublish
      *
      * @return bool Returns true if the event metadata is cleared, false otherwise.
      */
-    private function clearEventMetadata($postId)
+    private function clearEventMetadata($postId): bool
     {
         if (!isset($_POST['unpublish-active']) || $_POST['unpublish-active'] != 'true') {
             delete_post_meta($postId, 'unpublish-date');
@@ -103,7 +103,7 @@ class Unpublish
      * @return array The metadata for the unpublish time.
      * @throws \Exception If any of the required keys are missing.
      */
-    private function getUnpublishTimeMetadata()
+    private function getUnpublishTimeMetadata(): array
     {
         $keys = array('unpublish-aa', 'unpublish-mm', 'unpublish-jj', 'unpublish-hh', 'unpublish-mn');
         foreach ($keys as $key) {
@@ -127,7 +127,8 @@ class Unpublish
      * @param array $meta The meta data containing the event details.
      * @return string The compiled event timestamp in the format 'YYYY-MM-DD HH:MM:SS'.
      */
-    private function compileEventTimestamp($meta) {
+    private function compileEventTimestamp($meta): string
+    {
         $offset = $this->getTimeZoneOffset();
         $timestamp = $meta['aa'] . '-' . $meta['mm'] . '-' . $meta['jj'] . ' ' . $meta['hh'] . ':' . $meta['mn'] . ':00';
         $eventTimestamp = gmdate('Y-m-d H:i:s', strtotime($timestamp . ' ' . $offset));
@@ -140,7 +141,7 @@ class Unpublish
      * @param int $postId The ID of the post.
      * @return string The requested action.
      */
-    private function getDesiredAction($postId)
+    private function getDesiredAction($postId): string
     {
         return isset($_POST['unpublish-action']) && !empty($_POST['unpublish-action']) ? $_POST['unpublish-action'] : 'trash';
     }
@@ -204,7 +205,7 @@ class Unpublish
      * The UI for the unpublish section
      * @return void
      */
-    public function setupUi($post)
+    public function setupUi($post): void
     {
         include CONTENTSCHEDULER_TEMPLATE_PATH . '/unpublish.php';
     }
