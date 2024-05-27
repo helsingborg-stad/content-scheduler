@@ -4,10 +4,13 @@ namespace ContentScheduler;
 
 class Unpublish
 {
+
+    private int $saveUnpublishProiority = 1;
+
     public function __construct()
     {
         add_action('post_submitbox_misc_actions', array($this, 'setupUi'));
-        add_action('save_post', array($this, 'saveUnpublish'), 1);
+        add_action('save_post', array($this, 'saveUnpublish'), $this->saveUnpublishProiority);
         add_action('unpublish_post', array($this, 'unpublishPost'));
     }
 
@@ -52,11 +55,6 @@ class Unpublish
             return;
         }
 
-        // Do not proceed if the post is not the one we want to unpublish
-        if (!$this->correspondsToRequestedUnscheduledPost($postId)) {
-            return;
-        }
-
         // Remove previous event
         $this->unschedulePreviousEvent($postId);
 
@@ -80,6 +78,9 @@ class Unpublish
             'post_id' => $postId,
             'action' => $eventAction
         ));
+
+        //Remove this action to avoid multiple posts being unscheduled
+        remove_action('save_post', array($this, 'saveUnpublish'), $this->saveUnpublishProiority);
     }
 
     /**
@@ -161,16 +162,6 @@ class Unpublish
         }
 
         return $offset;
-    }
-
-    /**
-     * Checks if the current post corresponds to the requested post to be unscheduled.
-     *
-     * @param int $postId The ID of the post to check.
-     * @return bool True if the post corresponds to the requested post, false otherwise.
-     */
-    private function correspondsToRequestedUnscheduledPost($postId): bool {
-        return isset($_POST['post_ID']) && $_POST['post_ID'] == $postId;
     }
 
     /**
