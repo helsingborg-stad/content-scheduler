@@ -1,5 +1,5 @@
 {
-    "name": "content-scheduler",
+    "name": "@helsingborg-stad/content-scheduler",
     "version": "3.1.2",
     "description": "Interface for post publishing and unpublisching schedulation",
     "main": "",
@@ -11,18 +11,19 @@
     },
     "repository": {
         "type": "git",
-        "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate.git"
+        "url": "https://github.com/helsingborg-stad/content-scheduler.git"
     },
     "author": "Kristoffer Svanmark",
     "license": "MIT",
     "bugs": {
-        "url": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate/issues"
+        "url": "https://github.com/helsingborg-stad/content-scheduler/issues"
     },
-    "homepage": "https://github.com/Svanmark/Wordpress-Plugin-Boilerplate",
+    "homepage": "https://github.com/helsingborg-stad/content-scheduler",
     "browserslist": [
         "> 1%",
         "not dead"
     ],
+    "files": ["dist/"],
     "devDependencies": {
         "autoprefixer": "^10.4.2",
         "clean-webpack-plugin": "^4.0.0",
