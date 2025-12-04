@@ -54,9 +54,9 @@ class Unpublish
         if ($this->isPostRevision($postId)) {
             return;
         }
-
+        $eventAction        = $this->getDesiredAction($postId);
         // Remove previous event
-        $this->unschedulePreviousEvent($postId);
+        $this->unschedulePreviousEvent($postId, $eventAction);
 
         // Clear event metadata if the 'unpublish-active' flag is not set to 'true'
         // And abort futher processing.
@@ -65,14 +65,12 @@ class Unpublish
         }
 
         //Allocate the necessary data
-        $eventAction        = $this->getDesiredAction($postId);
         $eventTimeMetadata  = $this->getUnpublishTimeMetadata();
         $eventTimestamp     = $this->compileEventTimestamp($eventTimeMetadata);
 
         //Update posts meta accordingly
         update_post_meta($postId, 'unpublish-date', $eventTimeMetadata);
         update_post_meta($postId, 'unpublish-action', $eventAction);
-
         //Schedule new event
         wp_schedule_single_event($eventTimestamp, 'unpublish_post', array(
             'post_id' => $postId,
@@ -126,14 +124,19 @@ class Unpublish
      * Compiles the event timestamp based on the given meta data.
      *
      * @param array $meta The meta data containing the event details.
-     * @return string The compiled event timestamp in the format 'YYYY-MM-DD HH:MM:SS'.
+     * @return The event timestamp in the format of a Unix timestamp.
      */
     private function compileEventTimestamp($meta): string
     {
         $offset = $this->getTimeZoneOffset();
-        $timestamp = $meta['aa'] . '-' . $meta['mm'] . '-' . $meta['jj'] . ' ' . $meta['hh'] . ':' . $meta['mn'] . ':00';
-        $eventTimestamp = gmdate('Y-m-d H:i:s', strtotime($timestamp . ' ' . $offset));
-        return $eventTimestamp;
+        $dateString = $meta['aa'] . '-' . $meta['mm'] . '-' . $meta['jj'] . ' ' . $meta['hh'] . ':' . $meta['mn'] . ':00';
+        
+        $timestamp = strtotime($dateString);
+        if ($offset) {
+            $timestamp = $timestamp + $offset;
+        }
+
+        return $timestamp;
     }
 
     /**
@@ -150,17 +153,12 @@ class Unpublish
     /**
      * Gets the timezone offset.
      *
-     * @return string The timezone offset.
+     * @return string The timezone offset in seconds.
      */
     private function getTimeZoneOffset() {
+
         $offset = get_option('gmt_offset');
-
-        if ($offset > -1) {
-            $offset = '-' . $offset;
-        } else {
-            $offset = '+' . (1 * abs($offset));
-        }
-
+        $offset = ($offset * 3600 * -1);
         return $offset;
     }
 
@@ -180,10 +178,12 @@ class Unpublish
      * @param int $postId The ID of the post.
      * @return void
      */
-    private function unschedulePreviousEvent($postId): void {
+    private function unschedulePreviousEvent($postId, $eventAction): void {
         $args = array(
-            'post_id' => $postId
+            'post_id' => $postId,
+            'action' => $eventAction
         );
+
         wp_unschedule_event(
             wp_next_scheduled(
                 'unpublish_post', $args
