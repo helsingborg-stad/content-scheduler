@@ -1,6 +1,6 @@
 {
     "name": "@helsingborg-stad/content-scheduler",
-    "version": "3.1.6",
+    "version": "3.1.8",
     "description": "Interface for post publishing and unpublisching schedulation",
     "main": "",
     "scripts": {
