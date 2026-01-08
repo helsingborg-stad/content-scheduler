@@ -40,7 +40,7 @@ class App
         wp_register_style(
             'content-scheduler-css',
             CONTENTSCHEDULER_URL . '/dist/' .
-                $this->cacheBust->name('css/content-scheduler.scss')
+                $this->cacheBust->name('css/content-scheduler.css')
         );
 
         wp_enqueue_style('content-scheduler-css');
