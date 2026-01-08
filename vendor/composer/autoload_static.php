@@ -7,22 +7,22 @@ namespace Composer\Autoload;
 class ComposerStaticInitf62a539d47abdc21024503d56b7ce7f3
 {
     public static $prefixLengthsPsr4 = array (
-        'C' => 
+        'C' =>
         array (
             'ContentScheduler\\' => 17,
         ),
-        'A' => 
+        'A' =>
         array (
             'AcfExportManager\\' => 17,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'ContentScheduler\\' => 
+        'ContentScheduler\\' =>
         array (
             0 => __DIR__ . '/../..' . '/source/php',
         ),
-        'AcfExportManager\\' => 
+        'AcfExportManager\\' =>
         array (
             0 => __DIR__ . '/..' . '/helsingborg-stad/acf-export-manager/src',
         ),
